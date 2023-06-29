@@ -44,23 +44,23 @@ const Todo = (props) => {
        setTasks([...tasks, newTask])
     }
   
-    const handleDeleteTask = (index) => {
-      const updatedTasks = [...tasks];
-      console.log("here")
-      console.log(tasks[index]);
-      if(tasks[index].type === "Important"){
-        setNumberImportant(numberImportant-1)
-      }else if (tasks[index].type === "Personal"){
-        setNumberPersonal(numberPersonal-1)
-      }else if(tasks[index].type === "Assigned to me"){
-        setNumberAssign(numberAssign-1)
-      }
-      if(tasks[index].enddate === today){
-        setNumberMyDay(numberMyDay-1)
-      }
-      updatedTasks.splice(index, 1);
-      setTasks(updatedTasks);
-    };
+    // const handleDeleteTask = (index) => {
+    //   const updatedTasks = [...tasks];
+    //   console.log("here")
+    //   console.log(tasks[index]);
+    //   if(tasks[index].type === "Important"){
+    //     setNumberImportant(numberImportant-1)
+    //   }else if (tasks[index].type === "Personal"){
+    //     setNumberPersonal(numberPersonal-1)
+    //   }else if(tasks[index].type === "Assigned to me"){
+    //     setNumberAssign(numberAssign-1)
+    //   }
+    //   if(tasks[index].enddate === today){
+    //     setNumberMyDay(numberMyDay-1)
+    //   }
+    //   updatedTasks.splice(index, 1);
+    //   setTasks(updatedTasks);
+    // };
 
     const currentDate = new Date();
 
@@ -80,7 +80,7 @@ const Todo = (props) => {
                     <h3>{currentMonth} {currentYear}</h3>
                 </div>
                 <div className="right-head-todo">
-                    {!IsAdding && (<button onClick={handleOpenAddTask}>+ New task</button>)}
+                    {!IsAdding && (<button onClick={handleOpenAddTask}><div>+</div>New task</button>)}
                     {IsAdding &&
                         (<AddTask
                         onAddTask={handleAddTask}
@@ -106,7 +106,7 @@ const Todo = (props) => {
             setNumberPersonal={setNumberPersonal}
             setNumberAssign={setNumberAssign}
             setNumberComplete={setNumberComplete}
-            handleDeleteTask={handleDeleteTask}
+            // handleDeleteTask={handleDeleteTask}
             today={today}
             datefromcalen={datefromcalen}
           />

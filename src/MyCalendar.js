@@ -12,9 +12,9 @@ const MyCalendar = (props) => {
         const formattedDate = format(date, 'dd/MM/yyyy');
         console.log(formattedDate);
         console.log('Selected Date:', date);
-        if(formattedDate === format(new Date(), 'dd/MM/yyyy')){
-            setCategory("My Day")
-        }
+        // if(formattedDate === format(new Date(), 'dd/MM/yyyy')){
+        //     setCategory("My Day")
+        // }
       };
 
     return (  

@@ -76,7 +76,7 @@ const CompleteTask = (props) => {
                     <h3 className="task-name">{name}</h3>
                     <div className="description">
                         <h6 className="task-type">{type}</h6>
-                        <h5 className="task-dot">•</h5>
+                        <div className="task-dot"></div>
                         <p className="task-enddate">{enddateShow}</p>
                     </div>
                 </div>
