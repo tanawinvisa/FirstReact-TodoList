@@ -1,25 +1,17 @@
-import React, { useState } from 'react';
-import Me from './Me.js'
-import MyCalendar from './MyCalendar.js';
-import CompleteTaskList from './CompleteTaskList.js';
+import React from 'react';
+import Me from './Me'
+import MyCalendar from './MyCalendar';
+import TaskList from './TaskList';
 
 const Reminder = (props) => {
     const { tasks , setTasks ,numberMyDay ,numberImportant 
         ,numberPersonal ,numberAssign ,numberComplete 
-        ,setNumberMyDay ,setNumberImportant ,setNumberPersonal ,setNumberAssign ,setNumberComplete 
         ,today ,datefromcalen ,setDateFromCalen ,setCategory ,formatDateFn} = props
 
-    console.info("datefromcalen:",datefromcalen)
+    // console.info("datefromcalen:",datefromcalen)
+
     const filteredCompleteTasksToday = tasks.filter((task) => {
-        if (task.enddate === formatDateFn(datefromcalen)) {
-            if(task.isCompleted === true){
-                return true
-            }else{
-                return false
-            }
-        } else {
-          return false;
-        }
+        return task.enddate === formatDateFn(datefromcalen) && task.isCompleted
       });
 
     return (
@@ -37,24 +29,19 @@ const Reminder = (props) => {
             </div>
             <div className='completed-task'>
                 <h4>Completed tasks</h4>
-                <CompleteTaskList 
+                <TaskList 
                     setTasks={setTasks}
-                    filteredCompleteTasksToday={filteredCompleteTasksToday}
+                    filteredTasks={filteredCompleteTasksToday}
                     tasks={tasks}
                     numberMyDay={numberMyDay}
                     numberImportant={numberImportant}
                     numberPersonal={numberPersonal}
                     numberAssign={numberAssign}
                     numberComplete={numberComplete}
-                    setNumberMyDay={setNumberMyDay}
-                    setNumberImportant={setNumberImportant}
-                    setNumberPersonal={setNumberPersonal}
-                    setNumberAssign={setNumberAssign}
-                    setNumberComplete={setNumberComplete}
                     today={today}
                     datefromcalen={datefromcalen}
                     setDateFromCalen={setDateFromCalen}
-                    
+                    isTodo={false}
                 />
             </div>
         </div>

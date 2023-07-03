@@ -12,8 +12,8 @@ const Me = () => {
                 <p>tanawin@kons.com</p>
             </div>
             <div className="me-icon">
-                <img src={bell} class="me-icon" />
-                <img src={setting} class="me-icon" />
+                <img src={bell} />
+                <img src={setting} />
             </div>
         </div>
     );

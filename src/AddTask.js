@@ -1,39 +1,35 @@
 import React , {useState} from 'react';
 import SelectDate from './SelectDate';
 import 'react-datepicker/dist/react-datepicker.css';
+import CATEGORIES from './ENUM_CATEGORIES';
 
-const AddTask = ( {onAddTask,onCloseAddTask , filteredTasks , category ,formatDateFn}) => {
-    const [id, setId] = useState()
+const AddTask = ( {onAddTask,onCloseAddTask ,formatDateFn}) => {
+    //? state id เอาไว้ใช้ทำอะไร ?  
     const [name, setName] = useState('');
     const [type, setType] = useState('');
-    const [isCompleted, setIsComplete] = useState(false)
-    const [isFavorited, setIsFavorited] = useState(false)
+    //? state isCompleted/isFavorited เอาไว้ใช้ทำอะไร ?
 
 
     const [enddate, setEnddate] = useState(formatDateFn(new Date()));
     const handleDateChange = (date) => {
         console.log(date)
-        setEnddate(date);
+        setEnddate(formatDateFn(date));
       };
 
     const handleSubmit = (e) => {
-        console.info(id)
         // e.preventDefault();
         onAddTask({
             name:name || "Untitled",
             type:type || "No type",
             enddate:enddate,
             id:Math.floor(100000 + Math.random() * 900000),
-            isCompleted,
-            isFavorited,
+            isCompleted: false,
+            isFavorited: false,
         });
         setName('');
         setType('');
         setEnddate('');
-        setId();
         onCloseAddTask();
-        setIsComplete(false)
-        setIsFavorited(false)
     };
 
     return (  
@@ -52,16 +48,13 @@ const AddTask = ( {onAddTask,onCloseAddTask , filteredTasks , category ,formatDa
                     />
                 <select value={type} onChange={(e) => setType(e.target.value)}>
                     <option value="">Select Type</option>
-                    <option value="Important">Important</option>
-                    <option value="Personal">Personal</option>
-                    <option value="Assigned to me">Assigned to me</option>
+                    <option value={CATEGORIES?.important?.text}>Important</option>
+                    <option value={CATEGORIES?.personal?.text}>Personal</option>
+                    <option value={CATEGORIES?.assign?.text}>Assigned to me</option>
                 </select>
                 <div>
                     <SelectDate 
-                        enddate={enddate}
-                        setEnddate={setEnddate}
                         onDateChange={handleDateChange}
-                        formatDateFn={formatDateFn}
                     />
                 </div>
             </div>

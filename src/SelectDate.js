@@ -1,7 +1,7 @@
 import DatePicker from 'react-datepicker'
 import { useState } from 'react';
 const SelectDate = ( props) => {
-    const {enddate , setEnddate , onDateChange , formatDateFn} = props
+    const {onDateChange} = props
     const [date , setDate] = useState(new Date())
 
     
@@ -11,7 +11,7 @@ const SelectDate = ( props) => {
                 console.log("date")
                 console.log(date)
                 setDate(date)
-                onDateChange(formatDateFn(date))
+                onDateChange(date)
                 }}  dateFormat="dd/MM/yyyy"
                 defaultValue={new Date()}
                 />

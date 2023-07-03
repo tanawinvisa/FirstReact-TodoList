@@ -1,8 +1,8 @@
-import Task from './Task.js';
+import Task from './Task';
 
-const TaskList = ({tasks ,filteredTasks , setTasks ,today
+const TaskList = ({tasks ,filteredTasks , setTasks
     ,numberMyDay ,numberImportant ,numberPersonal ,numberAssign ,numberComplete 
-    ,setNumberMyDay ,setNumberImportant ,setNumberPersonal ,setNumberAssign ,setNumberComplete , datefromcalen }) => {
+    ,datefromcalen ,isTodo }) => {
         console.log("filter:",filteredTasks)
     return (  
         <div className="task-list">
@@ -10,7 +10,6 @@ const TaskList = ({tasks ,filteredTasks , setTasks ,today
             <Task
             key={index}
             task={task}
-            // onDelete={() => handleDeleteTask(index)}
             setTasks={setTasks}
             tasks={tasks}
             numberMyDay={numberMyDay}
@@ -18,13 +17,8 @@ const TaskList = ({tasks ,filteredTasks , setTasks ,today
             numberPersonal={numberPersonal}
             numberAssign={numberAssign}
             numberComplete={numberComplete}
-            setNumberMyDay={setNumberMyDay}
-            setNumberImportant={setNumberImportant}
-            setNumberPersonal={setNumberPersonal}
-            setNumberAssign={setNumberAssign}
-            setNumberComplete={setNumberComplete}
-            today={today}
             datefromcalen={datefromcalen}
+            isTodo={isTodo}
           />
         ))}
         </div>

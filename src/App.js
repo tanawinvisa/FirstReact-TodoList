@@ -1,36 +1,45 @@
-import Menu from './MenuBar.js';
-import Reminder from './Reminder.js';
-import Todo from './Todo.js';
+import { useQuery } from '@apollo/client';
+import MenuBar from './MenuBar';
+import Reminder from './Reminder';
+import Todo from './Todo';
 import { useState } from 'react';
+import { GET_USER } from './query.js';
+import CATEGORIES from './ENUM_CATEGORIES';
+
 
 function App() {
+  const { data, loading } = useQuery(GET_USER)
+  console.info(data, loading)
   const [category , setCategory] = useState("My Day");
   const [IsAdding, setIsAdding] = useState(false);
   const [tasks, setTasks] = useState([]);
-  const [numberMyDay , setNumberMyDay] = useState(0);
-  const [numberImportant , setNumberImportant] = useState(0);
-  const [numberPersonal , setNumberPersonal] = useState(0);
-  const [numberAssign , setNumberAssign] = useState(0);
-  const [numberComplete , setNumberComplete] = useState(0);
 
-  const [datefromcalen, setDateFromCalen] = useState(new Date());
+
   const formatDateFn = (date) => {
     const selectedDate = new Date(date)
     return selectedDate.getDate() + "/"+ parseInt(selectedDate.getMonth()+1) +"/"+ selectedDate.getFullYear();
 }
   const today = formatDateFn(new Date());
+  const [datefromcalen, setDateFromCalen] = useState(new Date());
+
+  const getMyDayNumber = tasks.filter((task) => task.enddate === today)?.length
+  const getImportantNumber = tasks.filter((task) => task.type === CATEGORIES?.important?.text )?.length
+  const getPersonalNumber = tasks.filter((task) => task.type === CATEGORIES?.personal?.text )?.length
+  const getAssignNumber = tasks.filter((task) => task.type === CATEGORIES?.assign?.text )?.length
+  const getCompleteNumber = tasks.filter((task) => task.isCompleted === true)?.length
+
   
   const filteredTasks = tasks.filter((task) => {
-    if(category === "All"){
+    if(category === CATEGORIES?.all?.text ){
       return true;
     }
-    if(category === "Complete"){
+    if(category === CATEGORIES?.complete?.text ){
       return task.isCompleted === true;
     }
-      if(category === "My Day"){
+      if(category === CATEGORIES?.myDay?.text ){
         return task.enddate === today;
       }
-      if((category === "Important") ||( category === "Personal")|| (category === "Assigned to me")){
+      if((category === CATEGORIES?.important?.text ) ||( category === CATEGORIES?.personal?.text)|| (category === CATEGORIES?.assign?.text)){
         return (task.type === category );
       }else{
         return task.enddate === formatDateFn(datefromcalen)
@@ -48,15 +57,14 @@ function App() {
 
   return (
     <div className="App">
-      <Menu 
+      <MenuBar 
         onClickCategory={handleClickCategory}
-        numberMyDay={numberMyDay}
-        numberImportant={numberImportant}
-        numberPersonal={numberPersonal}
-        numberAssign={numberAssign}
-        numberComplete={numberComplete}
+        numberMyDay={getMyDayNumber}
+        numberImportant={getImportantNumber}
+        numberPersonal={getPersonalNumber}
+        numberAssign={getAssignNumber}
+        numberComplete={getCompleteNumber}
         tasks={tasks}
-        formatDateFn={formatDateFn}
       />
       <Todo 
         category={category}
@@ -65,34 +73,23 @@ function App() {
         tasks={tasks}
         setTasks={setTasks}
         filteredTasks={filteredTasks}
-        numberMyDay={numberMyDay}
-        numberImportant={numberImportant}
-        numberPersonal={numberPersonal}
-        numberAssign={numberAssign}
-        numberComplete={numberComplete}
-        setNumberMyDay={setNumberMyDay}
-        setNumberImportant={setNumberImportant}
-        setNumberPersonal={setNumberPersonal}
-        setNumberAssign={setNumberAssign}
-        setNumberComplete={setNumberComplete}
+        numberMyDay={getMyDayNumber}
+        numberImportant={getImportantNumber}
+        numberPersonal={getPersonalNumber}
+        numberAssign={getAssignNumber}
+        numberComplete={getCompleteNumber}
         formatDateFn={formatDateFn}
-        today={today}
         datefromcalen={datefromcalen}
         setDateFromCalen={setDateFromCalen}
       />
       <Reminder 
         tasks={tasks}
         setTasks={setTasks}
-        numberMyDay={numberMyDay}
-        numberImportant={numberImportant}
-        numberPersonal={numberPersonal}
-        numberAssign={numberAssign}
-        numberComplete={numberComplete}
-        setNumberMyDay={setNumberMyDay}
-        setNumberImportant={setNumberImportant}
-        setNumberPersonal={setNumberPersonal}
-        setNumberAssign={setNumberAssign}
-        setNumberComplete={setNumberComplete}
+        numberMyDay={getMyDayNumber}
+        numberImportant={getImportantNumber}
+        numberPersonal={getPersonalNumber}
+        numberAssign={getAssignNumber}
+        numberComplete={getCompleteNumber}
         today={today}
         datefromcalen={datefromcalen}
         setDateFromCalen={setDateFromCalen}
